@@ -84,7 +84,7 @@ button {
   border: none;
 }
 
-.card__like-button{
+.card__like-button {
   font-family: var(--accent-font);
   border: 2px solid #000;
   background-color: #fff;
