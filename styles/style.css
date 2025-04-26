@@ -9,18 +9,41 @@
 ✦ button__text — для обозначения текстового элемента внутри кнопки
 
 */
+@keyframes heart_scale {
+  from {
+    transform-origin: center;
+    transform: scale(1);
+  }
+  to {
+    transform-origin: center;
+    transform: scale(1.25);
+  }
+}
+
+@keyframes sparks_fill {
+  from {
+    fill: #fff;
+  }
+  to {
+    fill: var(--animation-color);
+  }
+}
 
 button {
-  font-family: var(--accent-font);
+  font-family: var(--accent-font), fantasy, sans-serif;
+  font-size: 14px;
+}
+
+h2 {
   font-size: 14px;
 }
 
 .page {
   min-inline-size: 320px;
   min-block-size: 100dvb;
-  padding: 100px 0;
+  padding-top: 100px;
   font-family: var(--main-font), sans-serif;
-  font-variation-settings: 'wght' 400;
+  font-variation-settings: 'wght' var(--main-font-weight);
   background-image: 
     repeating-linear-gradient(to right, #d3d3d3 0px 2px, transparent 2px 4px), 
     repeating-linear-gradient(to bottom, #d3d3d3 0px 2px, transparent 2px 4px),
@@ -32,9 +55,9 @@ button {
 
 .header {
   inline-size: 100vw;
-  font-family: var(--accent-font);
-  margin-bottom: 100px;
-  padding: 120px 14px;
+  font-family: var(--accent-font), fantasy, sans-serif;
+  margin-bottom: 102px;
+  padding: 120px 0;
   outline: 2px solid #000;
   background-color: #fff;
   text-align: center;
@@ -45,23 +68,21 @@ button {
 }
 
 .header__text {
+  margin-top: 20px;
   font-size: 14px;
   text-transform: uppercase;
 }
 
-.main {
-  background-color: #fff;
-}
-
 .main__card {
-  min-block-size: 760px;
   font-size: var(--main-font-size);
   border: 2px solid #000;
   margin-bottom: 50px;
+  background-color: #fff;
 }
 
 .main__card_title {
   font-size: var(--main-font-size);
+  font-variation-settings: "wght" var(--title-font-weight);
   padding: 4px 10px  6px;
 }
 
@@ -77,35 +98,134 @@ button {
   justify-content: flex-end;
   padding: 0 25px 25px;
   font-size: 14px;
+  gap: 6px;
 }
 
 .card__icon-button {
   background-color: #fff;
-  border: none;
+  border: 2px solid transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.card__icon-button:focus-visible {
+  outline: transparent;
+  border: 2px solid#000;
+  transition: border 0.3s ease;
+}
+
+.card__icon-button:hover .core {
+  fill: var(--contour-color);
+  transition: fill 0.3s linear;
+}
+
+.card__icon-button:hover .main-body {
+  fill: var(--contour-color);
+  transition: fill 0.3s linear 0.05s;
+}
+
+.card__icon-button:active .core {
+  fill: var(--animation-color);
+  transition: fill 0.3s linear;
+}
+
+.card__icon-button:active .main-body {
+  fill: var(--animation-color);
+  transition: fill 0.3s linear 0.05s;
+}
+
+.like-icon.is-liked .contour {
+  fill: var(--animation-color);
+  transition: fill 0.3s linear 0.06s;
+}
+
+.like-icon.is-liked .core {
+  fill: var(--animation-color);
+  transition: fill 0.3s linear ;
+}
+
+.like-icon.is-liked .main-body {
+  fill: var(--animation-color);
+  transition: fill 0.3s linear 0.05s;
+}
+
+.like-icon.is-liked .heart,
+.like-icon.is-liked .sparks {
+  animation: heart_scale 0.3s ease-in 0.1s;
+}
+
+.like-icon.is-liked .sparks {
+  animation: heart_scale 0.3s ease-in 0.1s;
+  animation: sparks_fill 0.3s ease-in 0.3s;
+}
+
+.core {
+  fill: #fff;
+  transition: fill 0.3s linear 0.05s;
+}
+
+.main-body {
+  fill: #fff;
+  transition: fill 0.3s linear
+}
+
+.contour {
+  fill: var(--contour-color);
+}
+
+.sparks {
+  fill: #fff;
+  transition: fill 0.1s linear;
 }
 
 .card__like-button {
-  font-family: var(--accent-font);
+  min-inline-size: 130px;
+  font-family: var(--accent-font), fantasy, sans-serif;
   border: 2px solid #000;
   background-color: #fff;
-  padding: 10px 35px;
+  padding: 10px 0;
+  position: relative;
+  cursor: pointer;
 }
 
-.footer {
-  max-width: 310px;
-  max-height: 80px;
-  margin: 0 32px 0 33px;
-  border: 2px solid #000;
+.card__like-button::after,
+.modal_button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #000;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.5s ease-in-out;
+  
+}
+
+.card__like-button:hover::after,
+.modal_button:hover::after {
+  transform: scaleX(1);
+}
+
+.card__like-button:focus {
+  box-shadow: 2px 2px 0 0 #000;
+  transition: box-shadow 0.3s ease;
+}
+
+.modal_button_container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
   text-align: center;
-  background-color: #fff;
-  font-family: var(--accent-font);
+  font-family: var(--accent-font), fantasy, sans-serif;
 }
 
-.footer__button {
+.modal_button {
   max-width: 310px;
   max-height: 84px;
-  background-color: transparent;
-  border: none;
+  position: relative;
+  background-color: #fff;
+  color: #fff;
+  cursor: pointer;
+  border: 2px solid #000;
   padding: 15px 20px;
   display: flex;
   flex-direction: column;
@@ -113,16 +233,63 @@ button {
   gap: 8px;
 }
 
+.modal_button svg {
+  width: 28px;
+  position: relative;
+  mix-blend-mode: difference;
+  z-index: 2;
+}
+
 .button__text {
   font-size: 14px;
+  color: #fff;
+  mix-blend-mode: difference;
+  position: relative;
+  z-index: 2;
+}
+
+.dialog_window svg {
+  width: 54.35px;
+  height: 54.35px;
+}
+
+.dialog_window h2 {
+}
+
+.dialog_window .modal_button {
+  width: 100%;
+  justify-content: center;
+  padding: 12.5px 0;
+}
+
+.dialog_window .button__text {
+  text-align: center;
+}
+
+.dialog_window[open] {
+  display: flex;
+}
+
+.dialog_window {
+  flex-direction: column;
+  width: 353px;
+  font-family: var(--accent-font);
+  padding: 30px;
+  gap: 30px;
+}
+
+.dialog-content {
+  display: grid;
+  grid-template-columns: 39px 1fr;
+  align-items: center;
+  gap: 20px;
 }
 
 .card__image {
   width: 100%;
   max-width: 371px;
-  border-top: 2px solid #000;
-  border-bottom: 2px solid #000;
-  overflow: hidden  ;
+  object-fit: cover;
+  object-position: center;
 }
 
 .image_grayscale {
@@ -155,15 +322,26 @@ button {
 }
 
 @media (width > 375px) {
+  .header {
+    padding: 128px 0;
+  }
   .header,
   .main,
-  .footer {
+  .modal_window_button_container {
     width: clamp(374px, 700px, 700px);
   }
   .page {
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+  .modal_button svg {
+    width: 21px;
+  }
+  .modal_button {
+    max-width: 337px;
+    flex-direction: row;
+    padding: 15px 19px;
   }
   .header__title {
     font-size: 65px;
