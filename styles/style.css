@@ -155,8 +155,7 @@ h2 {
 }
 
 .like-icon.is-liked .sparks {
-  animation: heart_scale 0.3s ease-in 0.1s;
-  animation: sparks_fill 0.3s ease-in 0.3s;
+  animation: heart_scale 0.3s ease-in 0.1s, sparks_fill 0.3s ease-in 0.3s;
 }
 
 .core {
@@ -253,9 +252,6 @@ h2 {
   height: 54.35px;
 }
 
-.dialog_window h2 {
-}
-
 .dialog_window .modal_button {
   width: 100%;
   justify-content: center;
@@ -283,6 +279,21 @@ h2 {
   grid-template-columns: 39px 1fr;
   align-items: center;
   gap: 20px;
+}
+
+.image_container {
+  position: relative;
+}
+
+.label {
+  position: absolute;
+  top: 25px;
+  right: 13px;
+  font-size: 14px;
+  font-family: var(--accent-font);
+  color: #fff;
+  mix-blend-mode: hard-light;
+  text-shadow: 1px 1px #000;
 }
 
 .card__image {
@@ -351,5 +362,14 @@ h2 {
   }
   .card__image {
     max-width: 696px;
+  }
+  .label {
+    right: 25px;
+  }
+}
+
+@supports (-webkit-text-stroke: #000) {
+  .label {
+    -webkit-text-stroke: 1px #000;
   }
 }
