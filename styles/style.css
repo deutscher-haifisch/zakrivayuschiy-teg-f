@@ -9,26 +9,6 @@
 ✦ button__text — для обозначения текстового элемента внутри кнопки
 
 */
-@keyframes heart_scale {
-  from {
-    transform-origin: center;
-    transform: scale(1);
-  }
-  to {
-    transform-origin: center;
-    transform: scale(1.25);
-  }
-}
-
-@keyframes sparks_fill {
-  from {
-    fill: #fff;
-  }
-  to {
-    fill: var(--animation-color);
-  }
-}
-
 button {
   font-family: var(--accent-font), fantasy, sans-serif;
   font-size: 14px;
@@ -39,9 +19,11 @@ h2 {
 }
 
 .page {
-  min-inline-size: 320px;
+  inline-size: 100vw;
+  min-inline-size: 375px;
   min-block-size: 100dvb;
   padding-top: 100px;
+  overflow-x: hidden;
   font-family: var(--main-font), sans-serif;
   font-variation-settings: 'wght' var(--main-font-weight);
   background-image: 
@@ -55,6 +37,7 @@ h2 {
 
 .header {
   inline-size: 100vw;
+  min-inline-size: 375px;
   font-family: var(--accent-font), fantasy, sans-serif;
   margin-bottom: 102px;
   padding: 120px 0;
@@ -64,13 +47,18 @@ h2 {
 }
 
 .header__title {
-  font-size: 49px;
+  font-size: clamp(3.063rem, 14.29vw, 4.063rem);
 }
 
 .header__text {
   margin-top: 20px;
   font-size: 14px;
   text-transform: uppercase;
+}
+
+.main {
+  inline-size: 100vw;
+  min-inline-size: 375px;
 }
 
 .main__card {
@@ -160,7 +148,7 @@ h2 {
 
 .core {
   fill: #fff;
-  transition: fill 0.3s linear 0.05s;
+  transition: fill 0.3s linear 0.03s;
 }
 
 .main-body {
@@ -177,18 +165,21 @@ h2 {
   transition: fill 0.1s linear;
 }
 
-.card__like-button {
-  min-inline-size: 130px;
+.main_button {
   font-family: var(--accent-font), fantasy, sans-serif;
   border: 2px solid #000;
   background-color: #fff;
-  padding: 10px 0;
-  position: relative;
   cursor: pointer;
+  position: relative;
 }
 
-.card__like-button::after,
-.modal_button::after {
+.card__like-button {
+  min-inline-size: 130px;
+  padding: 10px 0;
+  transition: box-shadow 0.3s ease;
+}
+
+.main_button::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -199,14 +190,13 @@ h2 {
   
 }
 
-.card__like-button:hover::after,
-.modal_button:hover::after {
+.main_button:hover::after {
   transform: scaleX(1);
 }
 
 .card__like-button:focus {
   box-shadow: 2px 2px 0 0 #000;
-  transition: box-shadow 0.3s ease;
+  outline: none;
 }
 
 .modal_button_container {
@@ -214,17 +204,12 @@ h2 {
   justify-content: center;
   margin-bottom: 100px;
   text-align: center;
-  font-family: var(--accent-font), fantasy, sans-serif;
 }
 
 .modal_button {
   max-width: 310px;
   max-height: 84px;
-  position: relative;
-  background-color: #fff;
   color: #fff;
-  cursor: pointer;
-  border: 2px solid #000;
   padding: 15px 20px;
   display: flex;
   flex-direction: column;
@@ -255,7 +240,7 @@ h2 {
 .dialog_window .modal_button {
   width: 100%;
   justify-content: center;
-  padding: 12.5px 0;
+  padding: 10px 0;
 }
 
 .dialog_window .button__text {
@@ -269,9 +254,13 @@ h2 {
 .dialog_window {
   flex-direction: column;
   width: 353px;
-  font-family: var(--accent-font);
+  font-family: var(--accent-font), fantasy, sans-serif;
   padding: 30px;
   gap: 30px;
+}
+
+.dialog_window::backdrop {
+  background-color: rgb(0 0 0 / 0.75);
 }
 
 .dialog-content {
@@ -279,6 +268,8 @@ h2 {
   grid-template-columns: 39px 1fr;
   align-items: center;
   gap: 20px;
+  text-transform: uppercase;
+  line-height: 150%;
 }
 
 .image_container {
@@ -290,10 +281,12 @@ h2 {
   top: 25px;
   right: 13px;
   font-size: 14px;
-  font-family: var(--accent-font);
-  color: #fff;
+  font-family: var(--accent-font), fantasy, sans-serif;
+  font-weight: var(--title-font-weight);
+  color: #000;
+  opacity: 0.5;
   mix-blend-mode: hard-light;
-  text-shadow: 1px 1px #000;
+  text-shadow: 1px 1px #fff;
 }
 
 .card__image {
@@ -337,9 +330,8 @@ h2 {
     padding: 128px 0;
   }
   .header,
-  .main,
-  .modal_window_button_container {
-    width: clamp(374px, 700px, 700px);
+  .main {
+    width: clamp(375px, 100vw, 700px);
   }
   .page {
     display: flex;
@@ -354,9 +346,6 @@ h2 {
     flex-direction: row;
     padding: 15px 19px;
   }
-  .header__title {
-    font-size: 65px;
-  }
   .header__text {
     font-size: 23px;
   }
@@ -370,6 +359,7 @@ h2 {
 
 @supports (-webkit-text-stroke: #000) {
   .label {
-    -webkit-text-stroke: 1px #000;
+    text-shadow: none;
+    -webkit-text-stroke: 1px #fff;
   }
 }
