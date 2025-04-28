@@ -23,7 +23,6 @@ h2 {
   min-inline-size: 375px;
   min-block-size: 100dvb;
   padding-top: 100px;
-  overflow-x: hidden;
   font-family: var(--main-font), sans-serif;
   font-variation-settings: 'wght' var(--main-font-weight);
   background-image: 
@@ -47,7 +46,8 @@ h2 {
 }
 
 .header__title {
-  font-size: clamp(3.063rem, 14.29vw, 4.063rem);
+  font-size: clamp(3.063rem, 2.71rem + 1.5vw, 4.063rem) /*49px*/;
+  font-weight: 400;
 }
 
 .header__text {
@@ -338,6 +338,9 @@ h2 {
     flex-direction: column;
     align-items: center;
   }
+  /*.header__title {
+    font-size: 65px;
+  }*/
   .modal_button svg {
     width: 21px;
   }
